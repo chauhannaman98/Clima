@@ -19,15 +19,15 @@ class WeatherModel {
     }
   }
 
-  String getMessage(int temp) {
+  String getMessage(int temp, String cityName) {
     if (temp > 25) {
-      return 'It\'s 🍦 time';
+      return 'It\'s 🍦 time in $cityName';
     } else if (temp > 20) {
-      return 'Time for shorts and 👕';
+      return 'Time for shorts and 👕 in $cityName';
     } else if (temp < 10) {
-      return 'You\'ll need 🧣 and 🧤';
+      return 'You\'ll need 🧣 and 🧤 in $cityName';
     } else {
-      return 'Bring a 🧥 just in case';
+      return 'Bring a 🧥 just in case in $cityName';
     }
   }
 }
