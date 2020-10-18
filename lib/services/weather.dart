@@ -5,9 +5,7 @@ const apiKey = '240729411a55042c0295ea0532ce366c';
 const openWeatherMapURL = 'http://api.openweathermap.org/data/2.5/weather';
 
 class WeatherModel {
-
   Future<dynamic> getCityWeather(String cityName) async {
-
     NetworkHelper networkHelper = NetworkHelper(
       '$openWeatherMapURL?'
           'q=$cityName&'
@@ -19,19 +17,53 @@ class WeatherModel {
     return weatherData;
   }
 
-  Future<dynamic> getLocationWeather() async {
+  Future<dynamic> getCurrentLocationWeather() async {
     Location location = Location();
-    await location.getCurrentLocation();
+    try {
+      print('trying to get location');
+      await location.getCurrentLocation();
+      print('got location data');
+    } catch(e)  {
+      print(e);
+    }
 
+    var weatherData;
+    weatherData = getWeatherUsingLocation(location);
+    return weatherData;
+  }
+
+  Future<dynamic> getLastLocationWeather() async {
+    Location location = Location();
+    try {
+      print('trying to get last location');
+      await location.getLastKnownLocation();
+      print('got last location data');
+    } catch (e) {
+      print(e);
+    }
+
+    var weatherData;
+    weatherData = getWeatherUsingLocation(location);
+    return weatherData;
+  }
+
+  Future<dynamic> getWeatherUsingLocation(Location location) async {
     NetworkHelper networkHelper = NetworkHelper(
         '$openWeatherMapURL?'
-        'lat=${location.latitude}&'
-        'lon=${location.longitude}&'
-        'appid=$apiKey&'
-        'units=metric'
+            'lat=${location.latitude}&'
+            'lon=${location.longitude}&'
+            'appid=$apiKey&'
+            'units=metric'
     );
 
-    var weatherData = await networkHelper.getData();
+    var weatherData;
+    
+    try {
+      print('trying to get weather data');
+      weatherData = await networkHelper.getData();
+    } catch(e)  {
+      print(e);
+    }
 
     return weatherData;
   }
