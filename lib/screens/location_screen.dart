@@ -114,7 +114,11 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 15.0),
+                padding: EdgeInsets.only(
+                  right: 15.0,
+                  left: 15.0,
+                  bottom: 20.0,
+                ),
                 child: Text(
                   weatherMessage,
                   textAlign: TextAlign.right,
